@@ -27,7 +27,7 @@ class Graph:
                 raise KeyError
             self.vertices[v1].add(v2)
         except KeyError:
-            print(f'No vertex of {v1} or {v2}')
+            print(f'Either {v1} or {v2} is not a valid vertex')
             return
 
     def get_neighbors(self, vertex_id):
@@ -37,7 +37,7 @@ class Graph:
         try:
             return self.vertices[vertex_id]
         except KeyError:
-            print(f'No vertex of {vertex_id}')
+            print(f'Vertex {vertex_id} does not exist')
             return None
 
     def bft(self, starting_vertex):
