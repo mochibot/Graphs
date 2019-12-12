@@ -140,15 +140,21 @@ class SocialGraph:
         #version 2 - modified BFS algorithm
         q = Queue()
         q.enqueue([user_id])
+        count = 0
+        separation = 0
         while q.size() > 0:
             path = q.dequeue()
             node = path[-1]
             if node not in visited:
+                count += 1
+                separation += len(path)
                 visited[node] = path
                 for friend in self.friendships[node]:
                     new_path = path.copy()
                     new_path.append(friend)
-                    q.enqueue(new_path)            
+                    q.enqueue(new_path)           
+        print(f'percentage {count / len(self.users)}')
+        print(f'separation {separation / len(self.users)}')
         return visited
 
 if __name__ == '__main__':
@@ -157,3 +163,7 @@ if __name__ == '__main__':
     print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(connections)
+
+    sg2 = SocialGraph()
+    sg2.populate_graph(1000, 5)
+    sg2.get_all_social_paths(1)
